@@ -13,7 +13,15 @@ from sentence_transformers import SentenceTransformer
 # with the following content:
 # google_api_key = "YOUR_API_KEY_HERE"
 # NEVER hardcode your API key in the script.
-API_KEY = st.secrets["google_api_key"]
+try:
+    API_KEY = st.secrets["GEMINI_API_KEY"]
+except KeyError:
+    API_KEY = os.getenv("GEMINI_API_KEY")
+
+if not API_KEY:
+    st.error("API key not found. Please set the 'GEMINI_API_KEY' environment variable or a Streamlit secret.")
+    st.stop()
+
 MODEL_NAME = "gemini-2.0-flash-lite"
 genai.configure(api_key=API_KEY)
 
@@ -141,12 +149,12 @@ st.info(
     """
     **Deployment Notes:**
     * **Vector Database:** This example uses a simplified in-memory FAISS index. For a production
-        environment, you would use a persistent, scalable vector database.
+      environment, you would use a persistent, scalable vector database.
     * **Finetuning:** Finetuning a model is a separate process of training it on a specific
-        dataset. It's a complex task and not something that can be included in a simple
-        Streamlit app file. The RAG approach serves as a powerful alternative for
-        specializing the model's knowledge on-the-fly.
+      dataset. It's a complex task and not something that can be included in a simple
+      Streamlit app file. The RAG approach serves as a powerful alternative for
+      specializing the model's knowledge on-the-fly.
     * **Security:** Your API key is managed securely using Streamlit's `secrets.toml`
-        feature.
+      feature.
     """
 )
