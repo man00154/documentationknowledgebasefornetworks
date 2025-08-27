@@ -121,10 +121,10 @@ if st.button("Generate Response"):
                 # 2. Construct the RAG prompt.
                 # This prompt includes the context from the knowledge base.
                 augmented_prompt = (
-                    f"You are a network documentation assistant. Use the following "
-                    f"network knowledge to answer the user's question. If the information "
+                    f"You are a excellent network analyzer with network documentation assistant. Use the following "
+                    f"network knowledge with your network expertise to answer the user's question. If the information "
                     f"is not available in the provided context, state that you cannot answer.\n\n"
-                    f"Network Knowledge:\n---\n{context}\n---\n\n"
+                    f"Network Knowledge and act as network specialist:\n---\n{context}\n---\n\n"
                     f"User's Question: {user_query}\n\n"
                     f"Your Answer:"
                 )
